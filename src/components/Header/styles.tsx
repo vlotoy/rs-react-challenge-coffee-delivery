@@ -1,50 +1,66 @@
 import styled from 'styled-components';
+import { mixins } from '../../styles/mixins';
 
 export const HeaderContainer = styled.header`
-  padding: 2rem 0;
+  max-width: 72.5rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
 
-  nav {
+export const Aside = styled.aside`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  position: relative;
+
+  font-size: 0.875rem;
+  line-height: 1.3;
+
+  a > svg {
+    padding: 0.5rem;
+
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
-    font-size: 0.875rem;
-    line-height: 1.3;
 
-    a > svg {
-      padding: 0.5rem;
-      display: flex;
-      border-radius: 8px;
-      background: ${(props) => props.theme['yellow-light']};
-      color: ${(props) => props.theme['yellow-dark']};
-    }
+    border-radius: 8px;
+    background: ${(props) => props.theme.colors['yellow-light']};
+    color: ${(props) => props.theme.colors['yellow-dark']};
   }
 
-  nav > span {
+  > span {
+    padding: 0.5rem;
+
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem;
+
     border-radius: 8px;
-    background: ${(props) => props.theme['purple-light']};
-    color: ${(props) => props.theme['purple-dark']};
+    background: ${(props) => props.theme.colors['purple-light']};
+    color: ${(props) => props.theme.colors['purple-dark']};
   }
 `;
 
 export const CartCounter = styled.span<{ visible: boolean }>`
   visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
-  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: -20%;
-  right: -5%;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: translate(50%, -50%);
+
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: ${(props) => props.theme['yellow-dark']};
-  color: ${(props) => props.theme['white']};
+  background: ${(props) => props.theme.colors['yellow-dark']};
+  color: ${(props) => props.theme.colors['white']};
+
+  ${mixins.fonts.textS}
+  font-weight: bold;
 `;
