@@ -22,4 +22,10 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     cursor: pointer;
   }
+
+  html {
+    @media (min-width: 768px) {
+      overflow-x: hidden;
+    }
+  }
 `;

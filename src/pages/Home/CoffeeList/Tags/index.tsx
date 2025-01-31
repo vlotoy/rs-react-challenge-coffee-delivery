@@ -1,6 +1,10 @@
 import { TagsContainer } from './styles';
 
-export function Tags({ tags }) {
+interface TagsProps {
+  tags: string[];
+}
+
+export function Tags({ tags }: TagsProps) {
   return (
     <TagsContainer>
       {tags.map((tag) => (

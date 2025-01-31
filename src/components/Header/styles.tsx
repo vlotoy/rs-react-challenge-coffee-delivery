@@ -44,8 +44,12 @@ export const Aside = styled.aside`
   }
 `;
 
-export const CartCounter = styled.span<{ visible: boolean }>`
-  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+interface CartCounterProps {
+  $visible: boolean;
+}
+
+export const CartCounter = styled.span<CartCounterProps>`
+  visibility: ${(props) => (props.$visible ? 'visible' : 'hidden')};
   display: flex;
   align-items: center;
   justify-content: center;

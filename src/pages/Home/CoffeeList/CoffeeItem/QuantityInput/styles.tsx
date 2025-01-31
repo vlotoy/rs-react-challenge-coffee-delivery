@@ -24,5 +24,9 @@ export const InputContainer = styled.div`
     &:hover {
       color: ${({ theme }) => theme.colors['purple-dark']};
     }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 `;

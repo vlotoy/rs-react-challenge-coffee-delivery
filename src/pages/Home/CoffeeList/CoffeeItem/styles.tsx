@@ -53,7 +53,7 @@ export const Price = styled.div`
   }
 `;
 
-export const QuantityCheck = styled.div`
+export const QuantityCheck = styled.div<{ $itemAdded: boolean }>`
   display: flex;
   gap: 0.5rem;
 
@@ -61,10 +61,14 @@ export const QuantityCheck = styled.div`
     padding: 0.5rem;
     display: flex;
     border-radius: 8px;
-    background: ${({ theme }) => theme.colors['purple-dark']};
+
+    background: ${({ theme, $itemAdded }) =>
+      $itemAdded ? theme.colors['yellow'] : theme.colors['purple-dark']};
+    transition: background 0.1s;
 
     &:hover {
-      background: ${({ theme }) => theme.colors['purple']};
+      background: ${({ theme, $itemAdded }) =>
+        $itemAdded ? theme.colors['yellow-dark'] : theme.colors['purple']};
     }
   }
 `;

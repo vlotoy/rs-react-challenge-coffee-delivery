@@ -3,8 +3,11 @@ import { Aside, CartCounter, HeaderContainer } from './styles';
 
 import headerLogo from '../../assets/headerLogo.svg';
 import { NavLink } from 'react-router-dom';
+import { useCart } from '../../hooks/useCart';
 
 export function Header() {
+  const { cart } = useCart();
+
   return (
     <HeaderContainer>
       <NavLink to="/" title="Home">
@@ -15,9 +18,9 @@ export function Header() {
           <MapPin size={22} weight="fill" />
           São Paulo, SP
         </span>
-        <NavLink to="/checkout" title="Checkout">
+        <NavLink to="/carrinho" title="Checkout">
           <ShoppingCart size={38} weight="fill" />
-          <CartCounter visible={true}>0</CartCounter>
+          <CartCounter $visible={!!cart.length}>{cart.length}</CartCounter>
         </NavLink>
       </Aside>
     </HeaderContainer>

@@ -32,6 +32,7 @@ export const FilterContainer = styled.aside`
     border-radius: 100px;
 
     ${mixins.fonts.tag}
+    text-transform: uppercase;
     background: ${({ theme }) => theme.colors['background']};
     color: ${({ theme }) => theme.colors['yellow-dark']};
   }

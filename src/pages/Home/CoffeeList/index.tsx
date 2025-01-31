@@ -1,28 +1,61 @@
+import { MouseEvent, useState } from 'react';
 import coffees from '../../../coffees.json';
+import { CoffeeItem } from './CoffeeItem';
 import {
   CoffeeListContainer,
   CoffeeListHeader,
   Coffees,
   FilterContainer,
 } from './styles';
-import { Coffee } from './Coffee';
+
+const filterOptions = [
+  'Tradicional',
+  'Especial',
+  'Com leite',
+  'Alcoólico',
+  'Gelado',
+];
+
+export interface Coffee {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  tags: string[];
+  image: string;
+}
 
 export function CoffeeList() {
+  const [filteredCoffees, setFilteredCoffees] = useState<Coffee[]>(coffees);
+
+  function handleFilterCoffees(e: MouseEvent<HTMLButtonElement>) {
+    const target = e.target as HTMLButtonElement;
+
+    const filteredList: Coffee[] = coffees.filter((item) =>
+      item.tags
+        .map((tag) => tag.toLowerCase())
+        .includes(target.innerText.toLowerCase())
+    );
+    setFilteredCoffees(filteredList);
+  }
+
   return (
     <CoffeeListContainer>
       <CoffeeListHeader>
         <h2>Nossos cafés</h2>
+
         <FilterContainer>
-          <button type="button">TRADICIONAL</button>
-          <button type="button">ESPECIAL</button>
-          <button type="button">COM LEITE</button>
-          <button type="button">GELADO</button>
+          <button onClick={() => setFilteredCoffees(coffees)}>Todos</button>
+
+          {filterOptions.map((option) => (
+            <button onClick={handleFilterCoffees}>{option}</button>
+          ))}
         </FilterContainer>
       </CoffeeListHeader>
 
       <Coffees>
-        {coffees.map((coffee) => (
-          <Coffee coffee={coffee} />
+        {filteredCoffees.map((coffee) => (
+          <CoffeeItem coffee={coffee} />
         ))}
       </Coffees>
     </CoffeeListContainer>
