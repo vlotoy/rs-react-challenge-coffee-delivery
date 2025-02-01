@@ -3,6 +3,10 @@ import { mixins } from '../../../styles/mixins';
 
 export const IntroContainer = styled.section`
   position: relative;
+  padding: 5.75rem 18rem;
+
+  display: flex;
+  align-items: center;
 
   img#intro-bg {
     position: absolute;
@@ -15,10 +19,6 @@ export const IntroContainer = styled.section`
 `;
 
 export const IntroContent = styled.div`
-  max-width: 72.5rem;
-  margin: 0 auto;
-  padding: 5.75rem 1.25rem;
-
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

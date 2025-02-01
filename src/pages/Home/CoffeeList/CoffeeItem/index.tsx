@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CheckFat, ShoppingCart } from '@phosphor-icons/react';
 import { useTheme } from 'styled-components';
 
@@ -17,10 +17,21 @@ interface CoffeeItemProps {
 
 export function CoffeeItem({ coffee }: CoffeeItemProps) {
   const theme = useTheme();
-  const { addItem, removeItem } = useCart();
+  const { cart, addItem, removeItem } = useCart();
 
   const [quantity, setQuantity] = useState(1);
   const [isItemAdded, setIsItemAdded] = useState(false);
+
+  useEffect(() => {
+    if (cart.length) {
+      const cartWithItensAdded = cart.filter((item) => item.id === coffee.id);
+
+      cartWithItensAdded.map((item) => {
+        setQuantity(item.quantity);
+        setIsItemAdded(true);
+      });
+    }
+  }, [cart, coffee]);
 
   function handleIncrementQuantity() {
     setQuantity((state) => state + 1);

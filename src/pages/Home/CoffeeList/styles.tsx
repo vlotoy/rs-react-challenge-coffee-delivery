@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { mixins } from '../../../styles/mixins';
 
 export const CoffeeListContainer = styled.section`
-  max-width: 72.5rem;
+  max-width: 90rem;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem 1.25rem;
+  padding: 2rem 10rem 10rem;
 
   display: flex;
   flex-direction: column;
