@@ -1,4 +1,4 @@
-import { ReactNode, useReducer } from 'react';
+import { ReactNode, useEffect, useReducer } from 'react';
 import { CartContext } from '.';
 import {
   CartItemType,
@@ -13,6 +13,7 @@ import {
   incrementQuantityAction,
   removeItemAction,
 } from '../reducers/cart/actions';
+import { useNavigate } from 'react-router-dom';
 
 interface CartContextProviderProps {
   children: ReactNode;
@@ -20,30 +21,39 @@ interface CartContextProviderProps {
 
 export interface CartContextType {
   cart: CartItemType[];
+  orders: Order[];
   addItem: (item: CartItemType) => void;
   removeItem: (itemId: CartItemType['id']) => void;
   handleIncrementQuantity: (itemId: CartItemType['id']) => void;
   handleDecrementQuantity: (itemId: CartItemType['id']) => void;
-  createNewOrder: (data: Order) => void;
+  createNewOrder: (order: Order) => void;
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const navigate = useNavigate();
   const [cartsState, dispatch] = useReducer(
     cartsReducer,
-    cartsInitialState
-    // (cartState) => {
-    //   const storedStateAsJSON = localStorage.getItem(
-    //     '@coffee-delivery:cart-state-1.0.0'
-    //   );
+    cartsInitialState,
+    (cartsInitialState) => {
+      const storedStateAsJSON = localStorage.getItem(
+        '@coffee-delivery:cart-state-1.00'
+      );
 
-    //   if (storedStateAsJSON) {
-    //     return JSON.parse(storedStateAsJSON);
-    //   }
-
-    //   return cartState;
-    // }
+      if (storedStateAsJSON) {
+        return JSON.parse(storedStateAsJSON);
+      }
+      return cartsInitialState;
+    }
   );
-  const { cart } = cartsState;
+  const { cart, orders } = cartsState;
+
+  useEffect(() => {
+    if (cartsState) {
+      const stateAsJSON = JSON.stringify(cartsState);
+
+      localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateAsJSON);
+    }
+  }, [cartsState]);
 
   function addItem(item: CartItemType) {
     dispatch(addItemAction(item));
@@ -61,16 +71,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(decrementQuantityAction(itemId));
   }
 
-  function createNewOrder(data: Order) {
-    console.log('data', data);
-
-    dispatch(createNewOrderAction(data));
+  function createNewOrder(order: Order) {
+    dispatch(createNewOrderAction(order));
+    navigate(`/pedido/${order.id}/sucesso`);
   }
 
   return (
     <CartContext.Provider
       value={{
         cart,
+        orders,
         addItem,
         removeItem,
         handleIncrementQuantity,

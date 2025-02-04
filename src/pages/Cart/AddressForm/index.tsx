@@ -1,6 +1,7 @@
 import { FieldError, useFormContext } from 'react-hook-form';
 import { AddressFormContainer } from './styles';
 import { TextInput } from './TextInput';
+import { ChangeEvent, useState } from 'react';
 
 export function AddressForm() {
   const {
@@ -8,25 +9,22 @@ export function AddressForm() {
     formState: { errors },
   } = useFormContext();
 
-  // const [zipCode, setZipCode] = useState('');
-  console.log(errors);
-
+  const [zipCode, setZipCode] = useState('');
   return (
     <AddressFormContainer>
       <TextInput
         gridArea="zipCode"
         placeholder="CEP"
         maxLength={8}
-        // value={zipCode}
+        value={zipCode}
         error={errors.zipCode as FieldError}
         {...register('zipCode', {
-          // onChange: (e: ChangeEvent<HTMLInputElement>) =>
-          //   setZipCode(
-          //     e.target.value
-          //       .replace(/^\D*/g, '')
-          //       .replace(/(\d{5})(\d{3})/g, '$1-$2')
-          //   ),
-          valueAsNumber: true,
+          onChange: (e: ChangeEvent<HTMLInputElement>) =>
+            setZipCode(
+              e.target.value
+                .replace(/^\D*/g, '')
+                .replace(/(\d{5})(\d{3})/g, '$1-$2')
+            ),
         })}
       />
       <TextInput

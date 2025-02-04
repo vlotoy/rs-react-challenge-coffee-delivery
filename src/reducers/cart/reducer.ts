@@ -63,6 +63,11 @@ export function cartsReducer(state: CartsState, { type, payload }: Actions) {
           itemToUpdate.quantity -= 1;
         }
       });
+    case ActionTypes.CreateNewOrder:
+      return produce(state, (draft) => {
+        draft.orders.push(payload);
+        draft.cart = [];
+      });
     default:
       return state;
   }

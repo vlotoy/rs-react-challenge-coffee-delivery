@@ -24,7 +24,7 @@ import coffees from '../../coffees.json';
 import { useCart } from '../../hooks/useCart';
 
 export const NewAddressFormValidationSchema = z.object({
-  zipCode: z.number({ invalid_type_error: 'Informe o CEP' }),
+  zipCode: z.string({ invalid_type_error: 'Informe o CEP' }),
   street: z.string().min(1, 'Informe a rua'),
   number: z.string().min(1),
   optional: z.string(),

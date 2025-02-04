@@ -75,7 +75,11 @@ export function CoffeeItem({ coffee }: CoffeeItemProps) {
       <CoffeeFooter>
         <Price>
           <span>R$</span>
-          <span>{coffee.price}</span>
+          <span>
+            {new Intl.NumberFormat('pt-br', {
+              minimumFractionDigits: 2,
+            }).format(coffee.price)}
+          </span>
         </Price>
         <QuantityCheck $itemAdded={isItemAdded}>
           <QuantityInput
