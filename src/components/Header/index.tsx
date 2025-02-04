@@ -4,9 +4,11 @@ import { Aside, CartCounter, HeaderContainer } from './styles';
 import headerLogo from '../../assets/headerLogo.svg';
 import { NavLink } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
+import { useTheme } from 'styled-components';
 
 export function Header() {
   const { cart } = useCart();
+  const theme = useTheme();
 
   return (
     <HeaderContainer>
@@ -15,7 +17,7 @@ export function Header() {
       </NavLink>
       <Aside>
         <span>
-          <MapPin size={22} weight="fill" />
+          <MapPin size={22} color={theme.colors['purple']} weight="fill" />
           São Paulo, SP
         </span>
         <NavLink to="/carrinho" title="Checkout">

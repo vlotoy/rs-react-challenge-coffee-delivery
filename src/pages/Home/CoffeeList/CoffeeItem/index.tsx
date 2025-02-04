@@ -9,7 +9,7 @@ import { CoffeeContainer, CoffeeFooter, Price, QuantityCheck } from './styles';
 
 import { Coffee } from '..';
 import { useCart } from '../../../../hooks/useCart';
-import { CartItem } from '../../../../reducers/cart/reducer';
+import { CartItemType } from '../../../../reducers/cart/reducer';
 
 interface CoffeeItemProps {
   coffee: Coffee;
@@ -44,7 +44,7 @@ export function CoffeeItem({ coffee }: CoffeeItemProps) {
   }
 
   function handleAddItem() {
-    const newItem: CartItem = {
+    const newItem: CartItemType = {
       id: coffee.id,
       quantity,
     };
@@ -54,11 +54,11 @@ export function CoffeeItem({ coffee }: CoffeeItemProps) {
   }
 
   function handleRemoveItem() {
-    const itemToRemove: CartItem = {
+    const itemToRemove: CartItemType = {
       id: coffee.id,
       quantity,
     };
-    removeItem(itemToRemove);
+    removeItem(itemToRemove.id);
     setIsItemAdded(false);
     setQuantity(1);
   }

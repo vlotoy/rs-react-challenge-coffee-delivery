@@ -8,7 +8,7 @@ export function Tags({ tags }: TagsProps) {
   return (
     <TagsContainer>
       {tags.map((tag) => (
-        <span>{tag}</span>
+        <span key={tag}>{tag}</span>
       ))}
     </TagsContainer>
   );

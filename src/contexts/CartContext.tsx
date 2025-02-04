@@ -1,20 +1,30 @@
 import { ReactNode, useReducer } from 'react';
 import { CartContext } from '.';
 import {
-  CartItem,
+  CartItemType,
   cartsInitialState,
   cartsReducer,
+  Order,
 } from '../reducers/cart/reducer';
-import { addItemAction, removeItemAction } from '../reducers/cart/actions';
+import {
+  addItemAction,
+  createNewOrderAction,
+  decrementQuantityAction,
+  incrementQuantityAction,
+  removeItemAction,
+} from '../reducers/cart/actions';
 
 interface CartContextProviderProps {
   children: ReactNode;
 }
 
 export interface CartContextType {
-  cart: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (item: CartItem) => void;
+  cart: CartItemType[];
+  addItem: (item: CartItemType) => void;
+  removeItem: (itemId: CartItemType['id']) => void;
+  handleIncrementQuantity: (itemId: CartItemType['id']) => void;
+  handleDecrementQuantity: (itemId: CartItemType['id']) => void;
+  createNewOrder: (data: Order) => void;
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
@@ -34,18 +44,40 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     // }
   );
   const { cart } = cartsState;
-  console.log(cart);
 
-  function addItem(item: CartItem) {
+  function addItem(item: CartItemType) {
     dispatch(addItemAction(item));
   }
 
-  function removeItem(item: CartItem) {
-    dispatch(removeItemAction(item));
+  function removeItem(itemId: CartItemType['id']) {
+    dispatch(removeItemAction(itemId));
+  }
+
+  function handleIncrementQuantity(itemId: CartItemType['id']) {
+    dispatch(incrementQuantityAction(itemId));
+  }
+
+  function handleDecrementQuantity(itemId: CartItemType['id']) {
+    dispatch(decrementQuantityAction(itemId));
+  }
+
+  function createNewOrder(data: Order) {
+    console.log('data', data);
+
+    dispatch(createNewOrderAction(data));
   }
 
   return (
-    <CartContext.Provider value={{ cart, addItem, removeItem }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addItem,
+        removeItem,
+        handleIncrementQuantity,
+        handleDecrementQuantity,
+        createNewOrder,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

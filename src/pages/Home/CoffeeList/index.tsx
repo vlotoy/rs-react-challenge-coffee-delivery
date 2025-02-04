@@ -20,7 +20,7 @@ export interface Coffee {
   id: number;
   name: string;
   description: string;
-  price: string;
+  price: number;
   tags: string[];
   image: string;
 }
@@ -48,14 +48,16 @@ export function CoffeeList() {
           <button onClick={() => setFilteredCoffees(coffees)}>Todos</button>
 
           {filterOptions.map((option) => (
-            <button onClick={handleFilterCoffees}>{option}</button>
+            <button key={option} onClick={handleFilterCoffees}>
+              {option}
+            </button>
           ))}
         </FilterContainer>
       </CoffeeListHeader>
 
       <Coffees>
         {filteredCoffees.map((coffee) => (
-          <CoffeeItem coffee={coffee} />
+          <CoffeeItem key={coffee.id} coffee={coffee} />
         ))}
       </Coffees>
     </CoffeeListContainer>

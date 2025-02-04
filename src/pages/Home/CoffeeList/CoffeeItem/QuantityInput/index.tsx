@@ -6,7 +6,7 @@ interface QuantityInputProps {
   quantity: number;
   incrementQuantity: () => void;
   decrementQuantity: () => void;
-  isItemAdded: boolean;
+  isItemAdded?: boolean;
 }
 
 export function QuantityInput({
